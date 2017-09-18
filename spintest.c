@@ -11,7 +11,7 @@ task main()
 	{
 		motor[Left] = spin;
 		motor[Right] = spin + 20;
-		wait1Msec(10000);
+		wait1Msec(7000);
 
 	spin = spin + 10;
 	}
