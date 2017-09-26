@@ -5,30 +5,15 @@
 
 task main()
 {
+
 	int spin = 10;
-	while(true)
+	while(spin <= 100)
 	{
-		if(SensorValue(button)==0)
-		{
-			while(spin <= 100)
-			{
-				motor[Left] = spin;
-				motor[Right] = spin + 20;
-				wait1Msec(5000);
+		motor[Left] = spin;
+		motor[Right] = spin + 20;
+		wait1Msec(7000);
 
-				spin = spin + 10;
-
-				if( SensorValue(button)==1)
-				{
-					motor[Left] = -50; motor[Right] = -50;
-					wait1Msec(1000);
-				}
-			}
-		}
-
-
-
-
-
+	spin = spin + 10;
 	}
+
 }

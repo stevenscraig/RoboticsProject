@@ -19,6 +19,8 @@ int spin = 10;
 			while(spin <= 100)
 
 			{
+				motor[Left]= 100; motor[Right]=100;
+				wait1Msec(100);
 
 				motor[Left] = spin;
 
@@ -30,10 +32,7 @@ int spin = 10;
 
 				spin = spin + 10;
 
-
-
 				if( SensorValue(button)==1)
-
 				{
 					motor[Right] =-100; motor[Left]= -100;
 					wait1Msec(250);
