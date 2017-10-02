@@ -6,49 +6,69 @@
 
 task main()
 {
-int spin = 10;
+	int spin = 10;
+	int mode = 1;
 
 	while(true)
 
 	{
 
-		if(SensorValue(button)==0)
+		if(mode ==1)
 
 		{
-
-			while(spin <= 100)
-
-			{
-				motor[Left]= 100; motor[Right]=100;
-				wait1Msec(100);
 
 				motor[Left] = spin;
 
 				motor[Right] = spin + 20;
 
-				wait1Msec(5000);
+				wait1Msec(500);
+				resetMotorEncoder(Left);
 
+				spin = spin + 2;
 
-
-				spin = spin + 10;
-
-				if( SensorValue(button)==1)
+				if(SensorValue(button) == 1)
 				{
-					motor[Right] =-100; motor[Left]= -100;
-					wait1Msec(250);
-					motor[Right]=0; motor[Left] = -100;
-					wait1Msec(500);
-		 				while(SensorValue(button)==0)
-  					{
+					mode = 2;
+				}
+		}
+					if(mode==2)
+					{
+						motor[Right] =-100; motor[Left]= -100;
+						wait1Msec(500);
+						motor[Right]=0; motor[Left] = -100;
+						wait1Msec(500);
+							while(SensorValue(button)==0)
+						{
 							motor[Right]=60; motor[Left] =100;
-  						wait1Msec(100);
+							wait1Msec(100);
 						}
 
-				}
 
-			}
+						if(getMotorEncoder(Left)> 3000)
+						{
+							motor[Right]=-100; motor[Left]=-100;
+							wait1Msec(500);
+							motor[Right]=100; motor[Left]=0;
+							wait1Msec(1000);
+							mode=3;
+							resetMotorEncoder(Left);
+						}
+					}
+						if(mode==3)
+						{
+							motor[Right]=100; motor[Left]=100;
+								if(getMotorEncoder(Left)>5000)
+								{
+									mode=1;
+									spin=10;
+								}
+									if(SensorValue(button)==1)
+									{
+										mode=2;
+										resetMotorEncoder(Left);
+									}
+						}
 
-		}
 
 
 
@@ -84,4 +104,5 @@ int spin = 10;
 
 
 
-	}
+
+}
